@@ -1,0 +1,76 @@
+{% extends 'base_code.html' %} {% load static %} {% block title %} {% endblock %} {% block content %}
+<div class="max-w-full">
+  <div class="max-w-full ">
+    <img alt="muresounds" src="{% static 'Banner.png' %}" class="w-full" />
+  </div>
+ {% comment %} thanks us Section {% endcomment %}
+  <div class="flex items-center justify-center w-screen mb-3">
+    <div><h1 class="md:text-3xl transition ease-in-out duration-300 opacity-20 font-serif font-semibold  scale-110"> Welcome to Mure Sounds studio </h1>
+      <p class="text-center"> We crafts products,experience and platforms that transform brands</p>
+    </div>
+  </div>
+  <hr class="max-w-full bg-slate-400 mt-4" />
+  <div class="flex w-screen items-center justify-center">
+  <!-- <button class="text-center text-3xl font-bold py-4 transition delay-100 duration-300 ease-in-out"> Why choose Us</button> -->
+  </div>
+ <div class="md:grid md:grid-cols-5 gap-5 mb-5 mx-8 hover:transition-all hover:ease-in-out hover:duration-500 hover:scale-95 items-center justify-center mt-2 ">
+  
+  <div class="md:col-span-4 mb-2">
+  <div class="border rounded-md p-2">
+    <h1 class="bg-slate-600 text-white font-bold text-xl rounded-md py-2 px-2 text-center my-2"> Why choose Us</h1>
+    <p>We are a multi-disciplinary design studio that brings exceptional creative solutions to music. Our strategy is based on simplicity and originality, making everything as simple as possible and producing practical solutions sustained on critical analysis and smart decisions. If it's simple, smart and practical, surely works.</p> </br>
+    Our studio stands out for its cutting-edge facilities, ensuring the highest quality recordings. With experienced instructors in guitar, piano, and solfege, we're dedicated to nurturing your musical talents. What sets us apart is our commitment to capturing your unique sound – our skilled sound engineers collaborate closely to tailor each recording to your individual style. We pride ourselves on providing a supportive and inclusive environment, catering to musicians at all levels. Whether you're seeking professional recording services or music education, MURE Sounds Studio is your go-to destination for a comprehensive and exceptional musical experience.
+  </div>
+  <!-- <div class="border rounded-md p-2 mt-3">
+    <h1 class="bg-slate-600 text-white font-bold text-xl rounded-md py-2 px-2 text-center my-2"> Simple,Smart and Practical</h1>
+    <p>We are a multi-disciplinary design studio that brings exceptional creative solutions to business. Our strategy is based on simplicity and originality, making everything as simple as possible and producing practical solutions sustained on critical analysis and smart decisions. If it's simple, smart and practical, surely works.</p>
+  </div> -->
+  </div>
+  <div class=" bg-slate-400 rounded-lg p-2 mx-auto ">
+    <div class="text-center ">
+      <h1 class="text-lg text-white font-bold mb-3">Ready to Elevate Your Music? Book Your Session at MURE Sounds Studio Today!</h1>
+    <p class="text-center text-sm">
+      Unleash your unique sound in our exceptional facilities or embark on a musical journey with our expert instructors. Whether it's recording,live Sound, mixing, or music education, we're here to help you achieve your goals. Contact us now to schedule your session and take the next step in your musical journey!<br>
+      
+    </p>
+    </div>
+  </div>
+ </div>
+ <!--Service Section-->
+  <div class="flex-1 max-w-full relative py-10 bg-cover bg-center rounded-lg z-10 shadow-lg shadow-black h-[40rem] text-center my-auto flex flex-col items-center  justify-center" style="background-image:url('{% static "mure.jpeg" %}');filter: grayscale(50%);" id="service">
+       <!-- <div class="absolute inset-0 bg-black bg-opacity-50 rounded-lg"></div> -->
+    <h1 class="p-3  text-[3rem]  hover:scale-125 text-white" style="font-family: 'headingFonts',sans-serif;">We specialiaze in different areas that can give you more than a single solution</h1>
+    <hr class="mx-auto bg-slate-50 w-1/2 my-2 "/>
+   
+     
+  </div>
+  </div>
+  <div class="grid md:grid-cols-3 gap-7" id="about">
+    <button
+      class="rounded-md p-2 my-5 mx-1 py-2 hover:scale-90 hover:transition hover:ease-in-out hover:duration-500  z-10 shadow-black shadow-lg bg-white items-center justify-center"
+    >
+      <h1 class="font-bold text-lg text-center py-4">Full Audio Production</h1>
+      <p class="text-center ">
+        If you can talk you can sing! we inspire musicians to write,Arrange and perform their music 
+        We exist to inspire musicians of all levels to write, arrange, and perform their music authentically. Whether you're a seasoned artist or just starting your musical journey, we're here to amplify your unique voice and transform your ideas into melodic 
+      </p>
+    </button>
+    <button
+      class=" rounded-md p-2 my-5 mx-1  py-2  hover:scale-90 hover:transition hover:ease-in-out hover:delay-300 hover:duration-400 z-10 shadow-black shadow-lg bg-white items-center justify-center"
+    >
+      <h1 class="font-bold text-lg text-center py-4">Music Lessons</h1>
+      <p class="text-center">
+       You need to boast your confidence In a choir or a group, why are you waiting? We teach and train you what works Solfege,Piano,Guitar and Theory
+      </p>
+    </button>
+    <button
+      class="rounded-md p-2 my-5 mx-1  py-2 hover:scale-90 hover:transition hover:ease-in-out hover:delay-150 hover:duration-400 z-10 shadow-black shadow-lg bg-white items-center justify-center"
+    >
+      <h1 class="font-bold text-lg text-center py-4">Live Sound and Post  Production</h1>
+      <p class="text-center">
+        We recognise a musical legacy you aim to create In your concert or your live performance we help your memories be heard in your wedding.
+      </p>
+    </button>
+  </div>
+</div>
+{% comment %} Banner Section {% endcomment %} {% endblock %}

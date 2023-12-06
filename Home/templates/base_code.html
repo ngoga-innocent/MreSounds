@@ -1,0 +1,113 @@
+{% load static tailwind_tags %} {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% block title%}Mure Sounds{% endblock %}
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"
+      integrity="sha512-uKQ39gEGiyUJl4AI6L+ekBdGKpGw4xJ55+xyJG7YFlJokPNYegn9KwQ3P8A7aFQAUtUsAQHep+d/lrGqrbPIDQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=YourFontFamily&display=swap">
+   <style>
+    @font-face {
+      font-family: 'headingFonts';
+      src: url('{%static "/fonts/Love_December.otf" %}');
+    }
+   </style>
+    {% tailwind_css %}
+  </head>
+  <body class="max-w-full ">
+    <nav class="bg-white py-3 md:shadow-md z-10 shadow-black">
+      <div class="flex justify-between px-4">
+        <div class="flex items-center">
+          <img src="{%static 'logo.png' %}" alt="" class="h-14" />
+          <span class="text-xl font-bold ml-2">MURE Sounds (Studios) </span>
+        </div>
+        <div class="lg:flex" id="mobile-menu-button">
+          <button
+            id="mobile-menu-button"
+            class="text-white p-2 focus:outline-none lg:hidden"
+          >
+            <i class="fas fa-bars"></i>
+            <!-- Font Awesome icon for the hamburger menu -->
+          </button>
+          <ul class="hidden lg:px-4 lg:flex lg:items-center" id="mobile-menu">
+            <li
+              class="text-md md:text-lg text-black hover:text-white hover:bg-green-950 rounded-lg mx-2"
+            >
+              <a href="#" class="px-2">Home</a>
+            </li>
+            <li
+              class="text-md md:text-lg text-black hover:text-white hover:bg-green-950 rounded-lg mx-2"
+            >
+              <a href="#service" class="px-2">Our Services</a>
+            </li>
+            <li
+              class="text-md md:text-lg text-black hover:text-white hover:bg-green-950 rounded-lg mx-2"
+            >
+              <a href="#about" class="px-2">About us</a>
+            </li>
+            <li
+              class="text-md md:text-lg text-black hover:text-white hover:bg-green-950 rounded-lg mx-2"
+            >
+              <a href="#" class="px-2">Articles</a>
+            </li>
+
+            <li
+              class="rounded-full px-2 py-2 bg-green-500 lg:bg-green-500 hover:bg-green-900 hover:text-white"
+            >
+              <button>
+                <a href="#" class="font-bold hove:text-white">Programs </a>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="">{% block content %} {% endblock %}</div>
+    <div class="max-w-full mx-auto bg-blue-950 py-10 flex flex-col justify-center">
+        <div class="md:grid md:grid-cols-3 gap-5 items-center">
+            <div class="">
+              <h1 class="text-white font-bold text-xl">Contact Information</h1>
+              <div class="md:grid gap-1">
+                <p class="text-white font-semibold mt-2 px-5">phone: +250782214360</p>
+                <p class="text-white font-semibold mt-2 px-5">email: muresoundsstudio@gmail.com</p>
+              </div>
+              <hr class="bg-blue-900 my-3 "/>
+            </div>
+             <div class="">
+              <h1 class="text-white font-bold text-xl">Adress Information</h1>
+              <div class="md:grid gap-1">
+                <p class="text-white font-semibold mt-2 px-5">location: GIKONDO-CJM</p>
+                <p class="text-white font-semibold mt-2 px-5">Owner:Dieudonne Mure</p>
+              </div>
+              <hr class="bg-blue-900 my-3 "/>
+            </div>
+            <div>
+              <ul class="flex flex-row gap-6">
+                <li class="rounded-full w-10 h-10 "><a href="https://twitter.com/MureSounds"><img src="{% static 'socialMedia/xlogo.jpg' %}"  class="rounded-full w-10 h-10"/></a></li>
+                <li class="rounded-full w-10 h-10"><a href="https://www.fiverr.com/dieudonnemure"><img src="{% static 'socialMedia/fiver.jpg' %}"  class="rounded-full w-10 h-10"/></a></li>
+                <li class="rounded-full w-10 h-10"><a href="https://www.peopleperhour.com/freelancer/writing-translation/mure-dieudonne-music-producer-and-transcriber-nwmwqzw"><img src="{% static 'socialMedia/peopleperhour.png' %}"  class="rounded-full w-10 h-10"/></a></li>
+                
+                <li class="rounded-full w-10 h-10"><a href="https://www.facebook.com/muresoundsstudios"><img src="{% static 'socialMedia/facebook.png' %}"  class="rounded-full w-10 h-10 object-cover"/></a></li>
+                <li class="rounded-full w-10 h-10"><a href="https://twitter.com/MureSounds"><img src="{% static 'socialMedia/logo_instagram.png' %}"  class="rounded-full w-10 h-10"/></a></li>
+                <li class="rounded-full w-10 h-10 relative"><a href="https://www.youtube.com/@muresoundsstudios2811/channels"><img src="{% static 'socialMedia/youtube.png' %}"  class="rounded-full w-10 h-10 "/></a></li>
+              </ul>
+            </div>
+        </div>
+    </div>
+    <script>
+      document
+        .getElementById("mobile-menu-button")
+        .addEventListener("click", function () {
+          var mobileMenu = document.getElementById("mobile-menu");
+          mobileMenu.classList.toggle("hidden");
+        });
+    </script>
+  </body>
+</html>

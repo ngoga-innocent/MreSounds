@@ -1,0 +1,46 @@
+{% extends 'base_code.html' %} {% load static %} {% block title %} {% endblock %} 
+
+
+{% block content %}
+<div class="bg-white w-full items-center mx-auto" style="align-items: center;">
+    <div class="items-center mx-[25%] mt-4 rounded-md shadow-slate-700 shadow-lg py-3">
+        <h2 class="font-bold text-2xl text-black  text-center">Register</h2>
+    </div>
+   {% if message %}
+<div class="bg-orange-500 self-center items-center mt-3 py-2 rounded-md md:mx-[25%] mx-2" style="background-color: orange;">
+       <h1 class="text-center text-white font-bold bg-orange-700">{{ message }}</h1>
+</div>
+   {% else  %}
+   <h1></h1>
+   {% endif %}
+    <div class="self-center my-4 mx-[25%] " style="align-items: center; justify-content: center;">
+        <form action="{% url 'signup' %}" method="post" class="self-center bg-gradient-to-br from-green-300 to-blue-600 px-3 py-2 border border-black rounded-xl shadow-2xl shadow-black">
+            {% csrf_token %}
+        <div class="text-left mb-2">
+            <label for="username" class="text-white text-lg font-semibold text-center mb-2">Username:</label></br>
+            <input type="text" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="username"  required  id="">
+        </div>
+        <div class="text-left mb-2">
+            <label for="email" class="text-white text-lg font-semibold text-center mb-2">Email:</label></br>
+            <input type="email" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="email" required  id="">
+        </div>
+        <div class="text-left mb-2">
+            <label for="phone" class="text-white text-lg font-semibold text-center mb-2">phone Number:</label></br>
+            <input type="text" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="phone"  required id="">
+        </div>
+        <div class="text-left mb-2">
+            <label for="password" class="text-white text-lg font-semibold text-center mb-2">Password:</label></br>
+            <input type="password" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="password" required  id="">
+        </div>
+        <div class="text-left mb-2">
+            <label for="password" class="text-white text-lg font-semibold text-center mb-2">Confirm Password:</label></br>
+            <input type="password" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="password1" required  id="">
+        </div>
+        <button type="submit" class="bg-green-800 hover:scale-125 text-white rounded-lg px-4 py-2 font-bold self-center hover:delay-200 hover:ease-in">Register</button>
+        <p class="text-sm text-gray-700">have an account? <a href="{% url 'login'  %}" class="text-white font-semibold">Sign In</a></p>
+    </form>
+    </div>
+</div>
+
+{% endblock %}
+    

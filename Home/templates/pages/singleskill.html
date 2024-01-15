@@ -1,0 +1,81 @@
+{% extends 'base_code.html' %} {% load static %} {% block title %} {% endblock %} 
+
+
+{% block content %}
+<div>
+    <div class="flex flex-col items-center justify-center h-36 bg-purple-950">
+    <h2 class="text-lg text-center text-white font-bold">{{ skill.title }} and {{ skill.chapter}}</h2>
+    <p id="End" class="text-orange-700" style="color: brown;"></p>
+</div>
+</div>
+<div class="grid grid-cols-7 gap-4">
+   
+<div class="col-span-5 ">
+
+<div class="pl-20">
+    {{ skill.body | safe }}
+</div>
+<form action="" method="" id="nextpreviousform">
+    {% csrf_token %}
+    <input type="hidden" name="nexprev" value="" id="clicked_button" data-value="{{skill.id}}">
+    <div class="flex flex-row justify-between" >
+        <button type="submit" class="text-blue-500 font-bold border border-gray-500 px-2 py-1 rounded-lg" data-value="previous">Previous</button>
+        <button type="submit" class="text-blue-500 font-bold border border-gray-500 px-2 py-1 rounded-lg" data-value="next">Next</button>
+    </div>
+
+</form>
+</div>
+<div class="col-span-2" ></div>
+</div>
+<script>
+    $(document).ready(function(){
+        $('#nextpreviousform').on('submit', function(e){
+            e.preventDefault();
+            var clicked = setClickedButton();
+            console.log(clicked);
+            var skillId=$('#clicked_button').data('value')
+            console.log(skillId)
+            // concontentType: 'application/x-www-form-urlencoded',sole.log($(this).attr('action'))
+            $.ajax({
+                //url: $(this).attr('action'),
+                url:'/staff/skill/' + skillId,
+                method:'POST',
+                //contentType:'application/json',
+                data: {
+                    "button": clicked,
+                    'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                },
+                success:function(data){
+                    // Redirect to the next skill page
+                     
+                if (data.id) {
+                    // Redirect to the next skill page
+                    window.location.href = '/staff/skill/' + data.id + '/';
+                } else {
+                    console.error('Error: No skill other skill has been yet Added');
+                    $('#End').addClass('text-orange-700')
+                    $('#End').html('No other skill available')
+                }
+            },
+                error:function(err){
+                    console.log(err)
+                }
+                
+            });
+        });
+
+        function setClickedButton(){
+            var clicked = $('#nextpreviousform button.clicked');
+            
+            return clicked.data('value');
+        }
+
+        $('#nextpreviousform').on('click', 'button', function(){
+            $('#nextpreviousform button').removeClass('clicked');
+            $(this).addClass('clicked');
+            $('#clicked_button').val($(this).data('value'));
+        });
+    });
+</script>
+{% endblock %}
+    

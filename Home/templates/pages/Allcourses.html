@@ -1,0 +1,24 @@
+{% extends 'base_code.html' %} {% load static %} {% block title %} {% endblock %} 
+{% block content %}
+<div class="w-full flex flex-col">
+    <div style="display: grid;
+            grid-template-columns: repeat(5,1fr);
+            gap: 16px;
+            padding: 16px;">
+    {% for course in courses %}
+    
+    <a href="{% url 'single_course' course.id %}" class="rounded-lg shadow-lg shadow-black bg-white col-span-1 max-w-full" style="display: flex; flex-direction: column; height: 100%; padding-bottom: 2px;">
+        
+        <img src="{{course.thumbnail.url}}" alt="" class="max-w-full h-32" style="height: 10rem;resize: both;">
+        <div class="ml-3" style="align-self: baseline; margin-top: auto; align-content: left;margin-left: 2px;padding-left: 2px;">
+            <h2 class="text-green-800 font-bold ">{{course.name}}</h2>
+            <h2 class="text-xs font-bold" style="font-size: small;">Author: <span>{{course.author}}</span></h2>
+        </div>
+        
+    </a>
+    
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}

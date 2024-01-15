@@ -1,0 +1,51 @@
+{% extends './Dashboard.html' %}
+
+{% block page %}
+    Add Course
+{% endblock page %}
+    
+{% block content %}
+<div class="py-10 px-10 w-full  ">
+    <button class="px-2 py-3 bg-blue-950 text-white font-bold  rounded-md shadow-lg shadow-white z-10 mb-10"  id="toggleAdd" >Add Course</button>
+    <form action="{% url 'addcourse' %}" method="post" id="formcourse" class="shadow-lg shadow-black z-10 py-20 px-10 rounded-lg my-10 hidden " enctype="multipart/form-data" id="addCourseForm">
+        {% csrf_token %}
+        <div class="flex flex-col justify-center-center py-2">
+            <div class="my-5">
+                <label for="Course_name" class="block font-bold">Add Course Name</label>
+                <input type="text" class="bg-white py-2  text-green-800 appearance-none w-3/4 mx-auto rounded-md  border-2" name="course_name" id="">
+            </div>
+            <div class="my-4">
+                <label for="thumbnail" class="block font-bold">Add Thumbnail</label>
+                <input type="file" name="course_thumbnail"  id="">
+            </div>
+            <div class="my-5">
+                <div class="grid grid-cols-8 gap-4 mt-20">
+                    <button class="rounded-lg px-10 py-2 bg-blue-950 text-white font-bold" type="submit">Save</button>
+                    <button class="rounded-lg px-10 py-2 bg-blue-950 text-white font-bold">Continue</button>
+                </div>
+            </div>
+        </div>
+    </form>
+   <div class="grid grid-cols-2 gap-4 w-full">
+    
+    {% for course in courses %}
+        <a href="{% url 'view_chapter' course.id %}" class="rounded-lg">
+            <div class="rounded-lg shadow-xl shadow-black z-10 border border-gray-600 ">
+            <img src="{{course.thumbnail.url}}" alt="{{course.name}}" class="object-fill rounded-t-lg" style="height: 300px; width: 100%;">
+            <h1 class="text-center font-medium lowercase p-2">{{course.name}}</h1>
+        </div>
+        </a>
+    {% endfor %}
+</div>
+
+</div>
+<script>
+    $(document).ready(function(){
+        
+        $('#toggleAdd').on('click',function(){
+           
+            $('#formcourse').toggleClass('hidden')
+        })
+    })
+</script>
+{% endblock content %}

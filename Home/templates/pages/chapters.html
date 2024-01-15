@@ -1,0 +1,54 @@
+{% extends 'base_code.html' %} {% load static %} {% block title %} {% endblock %} 
+
+
+{% block content %}
+{%  if chapters %}
+<div class="flex flex-row gap-2">
+    <div class="grid grid-cols-3 gap-2 col-span-6 w-2/3">
+        {% for chapter in chapters  %}
+        <button data-chapter-id="{{chapter.id}}" id="chapter_id" data-course-id="{{course_id}}" class="chapter_button rounded-lg bg-white shadow-black shadow-lg py-4 h-20 flex  flex-row  items-center justify-center">
+            {% if chapter.icon != null %}
+                <img src="{{chapter.icon.url}}" alt="" class="object-contain max-h-full border rounded-xl mr-7 px-2 py-1">
+            {% else  %}
+                <img src="{%static 'Icons/chapter.png' %}" alt="icon" class="object-contain max-h-full border rounded-xl mr-7 px-2 py-1">
+            {% endif %}
+            {{ chapter.title }}
+        </button>
+        {% endfor %}
+    </div>
+    <div class="w-1/3" id="display_skills"></div>
+</div>
+
+{% else %}
+<p>no chapter yet added!!!! check other courses</p>
+{% endif %}
+
+<script>
+    $(document).ready(function(){
+        $('.chapter_button').on('click',function(){
+            var chapterId=$(this).data('chapter-id');
+            // alert(chapterId)
+            $.ajax({
+                url:'/staff/getskills/' + chapterId + '/',
+                method:'GET',
+                type:'json',
+                success:function(data){
+                    if(!data.skills.length >0){
+                        displaySkills(data.skills)
+                    }
+                    $('#display_skills').html('<div> <h2 className="text-orange-500" style="color:red">This chapter has no Skills,consider checking other Chapter</h2> </div>')
+                },
+                error:function(erro){
+                    console.log(error)
+                }
+            })
+        })
+    })
+    function displaySkills(skills){
+skills.forEach(skill => {
+     var link =  '/staff/skill/' + skill.id
+     $('#display_skills').append('<div> <a href="' + link + '">' +skill.title + '</a> </div>')
+});
+    }
+</script>
+{% endblock %}

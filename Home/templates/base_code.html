@@ -12,6 +12,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=YourFontFamily&display=swap">
    <style>
     @font-face {
@@ -20,8 +21,28 @@
     }
    </style>
     {% tailwind_css %}
+    <script src="{% static 'Js/jquery.js' %}"></script>
+     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            
+        }
+    </style>
   </head>
-  <body class="max-w-full ">
+  <body class="max-w-full">
     <nav class="bg-white py-3 md:shadow-md z-10 shadow-black">
       <div class="flex justify-between px-4">
         <div class="flex items-center">
@@ -40,7 +61,7 @@
             <li
               class="text-md md:text-lg text-black hover:text-white hover:bg-green-950 rounded-lg mx-2"
             >
-              <a href="#" class="px-2">Home</a>
+              <a href="{% url 'home' %}" class="px-2">Home</a>
             </li>
             <li
               class="text-md md:text-lg text-black hover:text-white hover:bg-green-950 rounded-lg mx-2"
@@ -61,16 +82,18 @@
             <li
               class="rounded-full px-2 py-2 bg-green-500 lg:bg-green-500 hover:bg-green-900 hover:text-white"
             >
+              
               <button>
-                <a href="#" class="font-bold hove:text-white">Programs </a>
+                <a href="{% url 'all_courses' %}" class="font-bold hove:text-white">Programs </a>
               </button>
+              
             </li>
           </ul>
         </div>
       </div>
     </nav>
-    <div class="">{% block content %} {% endblock %}</div>
-    <div class="max-w-full mx-auto bg-blue-950 py-10 flex flex-col justify-center">
+    <main class="" style="overflow-y: auto;">{% block content %} {% endblock %}</main>
+    <footer class="max-w-full  bg-blue-950 py-10 flex flex-col justify-center bottom-0" style="bottom: 0;">
         <div class="md:grid md:grid-cols-3 gap-5 items-center">
             <div class="">
               <h1 class="text-white font-bold text-xl">Contact Information</h1>
@@ -100,7 +123,7 @@
               </ul>
             </div>
         </div>
-    </div>
+    </footer>
     <script>
       document
         .getElementById("mobile-menu-button")

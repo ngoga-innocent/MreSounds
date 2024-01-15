@@ -1,0 +1,216 @@
+{% extends './Dashboard.html' %}
+{% load static %}
+<!-- <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script> -->
+{% block page %}
+   Chapter
+{% endblock page %}
+
+{% block content %}
+<div class="flex-1 relative">
+    <div id="spinner" class="spinner">
+    <div class="spinner-inner"></div>
+</div>
+<button id="addChapter" data-course-id="{{course_id}}" class="rounded-md bg-green-800 text-white font-bold px-2 py-2 mx-2 mt-4"> Add Chapter</button>
+
+<div id="class_form" class="absolute top-0 z-10 shadow-lg shadow-black rounded-lg backdrop-blur-lg w-3/4 px-3 py-3 hidden">
+    <form action="" method="post" enctype="multipart/form-data" id="addclass_form" data-course-id="{{course_id}}">
+        {% csrf_token %}
+        <!-- {{addchapter.media}} -->
+        <div class="flex flex-col my-2 ">
+            {{addchapter}}
+        </div>
+        <button type="submit" class="bg-green-800 text-white rounded-md px-2 py-1">Add Chapter</button>
+    </form>
+</div>
+    <div class="grid grid-cols-3 mt-5 mx-1 gap-2 my-4">
+{% for chapter in chapters %}
+<button data-chapter-id="{{chapter.id}}" id="chapter_id" data-course-id="{{course_id}}" class="chapter_button rounded-lg bg-white shadow-black shadow-lg py-4 h-20 flex  flex-row  items-center justify-center">
+    {% if chapter.icon != null %}
+    <img src="{{chapter.icon.url}}" alt="" class="object-contain max-h-full border rounded-xl mr-7 px-2 py-1">
+    {% else  %}
+    <img src="{%static 'Icons/chapter.png' %}" alt="icon" class="object-contain max-h-full border rounded-xl mr-7 px-2 py-1">
+    {% endif %}
+    {{ chapter.title }}
+</button>
+
+{% endfor %}
+</div>
+<div class="rounded-lg hidden" id="Skillsmodal" style="position: absolute;top: 0; width:80%;margin-left: 50px;padding: 10px; background-color: darkgrey;">
+    <div class="flex flex-row justify-between px-4 my-5">
+        <button id="addSkill" class="bg-green-800  text-white font-bold text-lg rounded-lg border border-white px-3" style="background-color: green;">Add Skills</button>
+        <button id="close_skill_modal" class="bg-red-800 text-white font-bold text-lg border border-white px-4 rounded-md " style="background-color: brown;">Close</button>
+    </div>
+    <div id="skillContainer" class="grid grid-cols-3 gap-2  w-full"></div>
+</div>
+    <div id="skill_form" class="absolute top-0 z-20 backdrop:blur-lg w-full bg-slate-300 px-4 hidden">
+        <h1 class="text-xl text-center font-bold border border-green-600 rounded-lg mt-4 py-2 w-3/4 self-center">Add Skill</h1>
+        <form action="" method="post" id="skill_form_submit">
+            {% csrf_token %}
+            {{form.media}}
+            <div class=" flex flex-col w-11/12 ">
+                {{form}}
+            </div>
+            <div class="flex flex-row">
+                <button type="submit" class="rounded-md px-3 py-2 my-3 bg-blue-900 text-white">Add Skill</button>
+                <button type="button" id="close_form" class="rounded-md px-3 py-2 my-3 bg-red-800 border border-white text-white" style="background-color: brown;">close</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('#spinner').addClass('hidden');
+        
+
+
+        function toggleSpinnerVisibility(showSpinner) {
+            if (showSpinner) {
+                $('#spinner').removeClass('hidden');
+                $('.backdrop').removeClass('hidden');
+            } else {
+                $('#spinner').addClass('hidden');
+                $('.backdrop').addClass('hidden');
+            }
+        }
+
+        $('.chapter_button ').on('click', function () {
+            $('#Skillsmodal').toggleClass('hidden');
+            var chapterId = $(this).data('chapter-id');
+            var courseId=$(this).data('course-id')
+            $.ajax({
+                url: '/staff/getskills/' + chapterId + '/',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    displaySkills(data.skills);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+            $('#addSkill').on('click', function () {
+                if (!$('#skill_form').hasClass('hidden')) {
+                    $('#skill_form').addClass('hidden');
+                } else {
+                    $('#skill_form').removeClass('hidden');
+                }
+            });
+        $(document).on('submit', '#skill_form_submit', function (e) {
+    e.preventDefault();
+    var courseId = $('.chapter_button').data('course-id');
+    var chapterId = $('.chapter_button').data('chapter-id');
+    $(this).attr('action', '/staff/addcourse/' + courseId + '/' + chapterId + '/');
+    this.submit();
+});
+                // $('#skill_form').on('submit', function (e) {
+                //     e.preventDefault();
+                //     toggleSpinnerVisibility(true);
+                //     $('#spinner').removeClass('hidden');
+                //     var titleValue = $('#id_title').val();
+                //     var bodyValue = $('#id_body').val();
+                //     var exercisesValue = $("#id_exercise").val();
+                //     var courseId=$('.chapter_button').data('course-id');
+                //     var chapterId=$('.chapter_button').data('chapter-id')
+                //     // alert(chapterId + 'hy ' + courseId)
+                //     //adding action on a form
+                //     $(this).attr('action','/staff/addcourse/'+ courseId+ '/' + chapterId + '/');
+                //     // //now submit the form
+                //     $(this).submit();
+                //     // $.ajax({
+                //     //     method: 'POST',
+                //     //     url: '/staff/addcourse/' + courseId +'/' + chapterId + '/',
+                //     //     data: {
+                //     //         'title': titleValue,
+                //     //         'body': bodyValue,
+                //     //         'exercise': exercisesValue,
+                //     //         'chapter': chapterId,
+                //     //         'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                //     //     },
+                //     //     success: function () {
+                //     //         //console.log('form successfully submitted');
+                //     //         toggleSpinnerVisibility(false);
+                //     //         $('#skill_form').addClass('hidden');
+                //     //         $('#skill_form form')[0].reset();
+                //     //         $('#successanimation').toggleClass('hidden')
+                //     //     },
+                //     //     error: function (error) {
+                //     //         console.log(error);
+                //     //     }
+                //     // });
+                // });
+                $('#close_form').on('click', function () {
+                    // console.log('clicked')
+                $('#skill_form').addClass('hidden');
+                });
+            
+        
+       
+        $('#addChapter').on('click',function(){
+            $('#class_form').toggleClass('hidden')
+        })
+        $('#addclass_form').on('submit', function(e) {
+        e.preventDefault();
+        var courseId = $('#addChapter').data('course-id');
+            // Update the form action with the correct courseId value
+            $(this).attr('action', '/staff/addchapter/' + courseId);
+
+            // Now, submit the form
+            this.submit();
+    // var form = $(this);
+    // if (form[0].checkValidity()) {  // Check if the form is valid
+    //     var title = $('#id_title').val();
+    //     var icon = $('#id_icon').val();
+    //     var courseId = $('#addChapter').data('course-id');
+    //     alert(courseId);
+
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: '/staff/addchapter/' + courseId,
+    //         data: {
+    //             'title': title,
+    //             'icon': icon,
+    //             'course': courseId,
+    //             'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+    //         },
+    //         success: function(data) {
+    //             console.log(data);
+    //         },
+    //         error: function(error) {
+    //             console.log(error);
+    //         }
+    //     });
+    // } else {
+    //     alert('form not valid')
+    //     // Form is not valid
+    //     // You may want to handle invalid form submission here
+    // }
+});
+
+
+        function displaySkills(skills) {
+            $('#skillContainer').empty();
+
+            skills.forEach(function (skill) {
+                 var link =  '/staff/skill/' + skill.id 
+                 
+                $('#skillContainer').append('<div class="rounded-md px-3 py-2 bg-blue-900 text-white"> <a href="'+ link +'">' +  skill.title + '</a>' + '</div>');
+            });
+        }
+
+        $('#close_skill_modal').on('click', function () {
+            $('#Skillsmodal').toggleClass('hidden');
+        });
+
+        $('#close_form').on('click', function () {
+            $('#Skillsmodal').addClass('hidden');
+        });
+    });
+</script>
+
+{% endblock content %}
+    
+    

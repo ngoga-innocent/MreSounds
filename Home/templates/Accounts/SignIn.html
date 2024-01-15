@@ -1,0 +1,32 @@
+{% extends 'base_code.html' %} {% load static %} {% block title %} {% endblock %} 
+
+
+{% block content %}
+<div class="bg-white  flex flex-col items-center mx-auto" style="align-items: center;width: '100%'; align-items: center; justify-content: center;">
+    <h2 class="font-bold text-2xl text-black px-7 rounded-md shadow-lg shadow-green-950 text-center">Sign In</h2>
+{% if messages %}
+  <ul class="messages justify-center items-center my-2" >
+    {% for message in messages %}
+      <li{% if not 'success' in  message.tags %} class="{{ message.tags }} text-red-700 px-4 text-lg" {% else %} class="{{ message.tags }} text-blue-700 px-4 text-lg"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+    <div class="items-center w-2/5 justify-center my-4" style="align-items: center; justify-content: center;align-self: center;">
+        <form action="{% url 'signin' %}" method="post" class="self-center  bg-gradient-to-br from-green-300 to-blue-600 px-3 py-2 border border-black rounded-xl shadow-2xl shadow-black">
+        {% csrf_token %}
+            <div class="text-left mb-2">
+            <label for="username" class="text-white text-lg font-semibold text-center mb-2">Username/Email:</label></br>
+            <input type="text" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="username" id="">
+        </div>
+        <div class="text-left mb-2">
+            <label for="password" class="text-white text-lg font-semibold text-center mb-2">Password:</label></br>
+            <input type="password" class="rounded-lg bg-transparent w-full border-white border text-white py-2" name="password" id="">
+        </div>
+        <button type="submit" class="bg-green-800 hover:scale-125 text-white rounded-lg px-4 py-2 font-bold self-center hover:delay-200 hover:ease-in">Login</button>
+        <p class="text-sm text-gray-700">don't have an account? <a href="{% url 'signup' %}" class="text-white font-semibold">Signup</a></p>
+    </form>
+    </div>
+</div>
+
+{% endblock %}
+    

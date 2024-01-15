@@ -37,13 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-      'tailwind',
-      'theme',
-      'django_browser_reload',
+    'tailwind',
+    'theme',
+    'django_browser_reload',
+    'ckeditor',
+    'corsheaders',
 
 
     #   //User APPS
-    'Home' #Home pages
+    'Home', #Home pages
+    'Staff',
+    'Accounts',
 ]
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
@@ -59,9 +63,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
-
+CORS_ALLOWED_ORIGINS=["http://localhost:8000",]
+CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'MureSounds.urls'
 
 TEMPLATES = [
@@ -129,6 +135,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL='/media/'
+MEDIA_ROOT=os.path.join(BASE_DIR , 'media')
 STATICFILES_DIR=[
     os.path.join(BASE_DIR,'Home/static')
 ] 

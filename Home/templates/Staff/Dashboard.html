@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     {% tailwind_css %}
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
     <script src="{% static 'Js/jquery.js' %}"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  />
+    
     <style>
     .spinner {
     position: fixed;
@@ -33,8 +35,14 @@
 @keyframes lineAnimation {
     to{
         width: 0%;
+        
     }
 }
+.blurred-container {
+            backdrop-filter: blur(10px); /* Adjust the blur intensity as needed */
+            background-color: rgba(255, 255, 255, 0); /* Adjust the background color and opacity */
+           
+        }
     </style>
 </head>
 <body class="max-w-full">
@@ -51,66 +59,94 @@
 <!-- ... (Your existing HTML) -->
 
 
-    <div class="grid grid-cols-8  shadow-lg shadow-black z-30  ">
-        <div class="grid col-span-2 bg-gradient-to-r from-green-600 to-green-900 p-3 h-full min-h-screen">
-            
-            <ul class="">
-                <li class="mb-28 p-3 bg-blue-950 rounded-lg z-10 shadow-lg shadow-white">
-                   <div class="grid grid-cols-2 items-center justify-center">
-                     <img src="{% static 'logo.png' %}" alt="" class="h-14 rounded-full">
-                     <h1 class="text-white font-bold">{% block page %}{% endblock %}</h1>
-                   </div>
-                </li>
-                <li class="z-20 shadow-sm shadow-white p-3
-                     hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
-                    justify-center text-center rounded-md mb-3 "><kbd><a href="#" class="text-white 
-                    font-bold hover:text-orange-600 "> Notes</a></kbd>
-                </li>
-                <div class="ml-10">
+    <div class="flex flex-row shadow-lg shadow-black z-30  ">
+        <div class="flex flex-row items-start">
+            <div class="opacity-0 hidden transition ease-in duration-500 fixed" id="menu" style="height: 100vh;">
+            <div class="flex flex-col bg-gradient-to-r from-green-600 to-green-900 p-3  min-h-screen overflow-y-auto " style="overflow-y: auto;" >
+                
+                
+                    <ul class="">
+                    <li class="mb-28 p-3 bg-blue-950 rounded-lg z-10 shadow-lg shadow-white">
+                    <div class="grid lg:grid-cols-2 items-center justify-center">
+                        <img src="{% static 'logo.png' %}" alt="" class="h-14 rounded-full">
+                        <h1 class="text-white font-bold">{% block page %}{% endblock %}</h1>
+                    </div>
+                    </li>
                     <li class="z-20 shadow-sm shadow-white p-3
-                     hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
-                    justify-center text-center rounded-md mb-3"><kbd><a href="{% url 'addcourse' %}" class="text-white 
-                    font-bold hover:text-orange-600 ">Add Course</a></kbd>
-                </li>
-                <li class="z-20 shadow-sm shadow-white p-3
-                     hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
-                    justify-center text-center rounded-md mb-3">
-                    <kbd>
-                        <a href="#" class="text-white 
-                    font-bold hover:text-orange-600 ">All Notes
-                </a></kbd>
-                </li>
-                </div>
-                <li class="z-20 shadow-sm shadow-white p-3
-                     hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
-                    justify-center text-center rounded-md mb-3 "><kbd><a href="#" class="text-white 
-                    font-bold hover:text-orange-600 "> Quiz</a></kbd>
-                </li>
-                <div class="ml-10">
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3 "><kbd><a href="#" class="text-white 
+                        font-bold hover:text-orange-600 "> Notes</a></kbd>
+                    </li>
+                    <div class="ml-10">
+                        <li class="z-20 shadow-sm shadow-white p-3
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3"><kbd><a href="{% url 'addcourse' %}" class="text-white 
+                        font-bold hover:text-orange-600 ">Add Course</a></kbd>
+                    </li>
                     <li class="z-20 shadow-sm shadow-white p-3
-                     hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
-                    justify-center text-center rounded-md mb-3"><kbd><a href="#" class="text-white 
-                    font-bold hover:text-orange-600 ">Add Quiz</a></kbd>
-                </li>
-                <li class="z-20 shadow-sm shadow-white p-3
-                     hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
-                    justify-center text-center rounded-md mb-3">
-                    <kbd>
-                        <a href="#" class="text-white 
-                    font-bold hover:text-orange-600 ">All Quizes
-                </a></kbd>
-                </li>
-                </div>
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3">
+                        <kbd>
+                            <a href="#" class="text-white 
+                        font-bold hover:text-orange-600 ">All Notes
+                    </a></kbd>
+                    </li>
+                    </div>
+                    <li class="z-20 shadow-sm shadow-white p-3
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3 "><kbd><a href="#" class="text-white 
+                        font-bold hover:text-orange-600 "> Quiz</a></kbd>
+                    </li>
+                    <div class="ml-10">
+                        <li class="z-20 shadow-sm shadow-white p-3
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3"><kbd><a href="#" class="text-white 
+                        font-bold hover:text-orange-600 ">Add Quiz</a></kbd>
+                    </li>
+                    <li class="z-20 shadow-sm shadow-white p-3
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3">
+                        <kbd>
+                            <a href="{% url 'add_team_mate' %}" class="text-white 
+                        font-bold hover:text-orange-600 ">Add Team Mate
+                    </a></kbd>
+                    </li>
+                    </div>
+                    
+                    
+                    
+                    
+                </ul>
+               
+                <h2 class="flex-end">V. 1.1.0</h2>
                 
-                
-                
-                
-            </ul>
-            <h2 class="self-end">V. 1.1.0</h2>
+            </div>
+            </div>
+            <button id="toggleMenu" class="ml-20 p-2 h-[20rem] w-[20rem] bg-orange-600">
+            <i class="fa fa-bars" aria-hidden="true"  style="font-size: xx-large; color: gray;"></i>
+            </button>
         </div>
-        <div class="grid col-span-6">{%block content  %}{% endblock %}</div>
+             
+        <div class=" grid col-span-6">{%block content  %}{% endblock %}</div>
     </div>
-    
+    <script>
+        $(document).ready(function(){
+            $('#toggleMenu').on('click',function(){
+                $('#menu').toggleClass('hidden')
+                var menuhidden=$('#menu').hasClass('hidden')
+
+
+                if(!menuhidden){
+                    $('#toggleMenu i').removeClass('fa-bars').addClass('fa-times')
+                    $('#menu').addClass('transition-opacity ease-in-out duration-300  animate-spin')
+                }
+                else{
+                    $('#toggleMenu i').removeClass('fa-times').addClass('fa-bars')
+                }
+            })
+            
+        })
+    </script>
 </body>
 
 <!-- <script type="text/javascript">

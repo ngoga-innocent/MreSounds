@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404,render,redirect
-from django.contrib.auth import get_user_model,authenticate,login
+from django.contrib.auth import get_user_model,authenticate,login,logout
 from django.contrib import messages
 # Create your views here.
 User=get_user_model()
@@ -56,3 +56,6 @@ def Login(request):
             messages.error(request, 'Failed to login. Please check your credentials.')
 
     return render(request, 'Accounts/Signin.html')
+def Logout(request):
+    logout(request)
+    return redirect('home')

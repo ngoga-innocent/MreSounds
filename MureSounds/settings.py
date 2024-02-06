@@ -69,7 +69,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS=["http://localhost:8000",]
 CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'MureSounds.urls'
-
+LOGIN_URL = '/accounts'
+LOGIN_REDIRECT_URL = 'home'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

@@ -4,3 +4,4 @@ from . import models
 admin.site.register(models.Course)
 admin.site.register(models.Skills)
 admin.site.register(models.Chapter)
+admin.site.register(models.Team)

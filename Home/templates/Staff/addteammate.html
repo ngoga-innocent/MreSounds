@@ -1,0 +1,79 @@
+{% extends './Dashboard.html' %}
+{% load static %}
+<!-- <script src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script> -->
+{% block page %}
+   Add Team Mate
+{% endblock page %}
+
+{% block content %}
+<div class="flex flex-col">
+    <div class="bg-slate-600 rounded-lg p-2 mt-3 hidden message">
+        <h1 id="response_message"></h1>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data" class="mx-3" style="margin-left: 7px;" id="add_team">
+        {% csrf_token %}
+        <div class="w-full">
+            <label for="Name">Add Team mate Name:</label><br>
+            <input type="text" required name="name" id="name" class="w-2/3 rounded-lg py-2">
+
+        </div>
+        <div class="w-full">
+            <label for="Name">Add Team mate Position:</label><br>
+            <input type="text" required name="position" id="position" class="w-2/3 rounded-lg py-2">
+
+        </div>
+        <div class="w-full">
+            <label for="Name">Add Team mate Position:</label><br>
+            <input type="file" required name="profile" id="profile" class="w-2/3 rounded-lg py-2" accept="image/*">
+
+        </div>
+        <button type="submit" id="submit" class="rounded-lg py-3 bg-green-700 text-white px-2 font-bold mt-3 hover:bg-green-900 hover:ease-in-out hover:transition-all hover:duration-300">Add Team Mate</button>
+    </form>
+    <div class="spinner hidden">
+        <div class="spinner-inner"></div>
+    </div>
+
+
+</div>
+
+
+<script>
+    $(document).ready(function(){
+     $('#add_team').on('submit',function(e){
+        e.preventDefault()
+        $('.backdrop').toggleClass('hidden')
+        $('.spinner').toggleClass('hidden')
+        var name=$('#name').val();
+        var position=$('#position').val();
+        var profile=$('#profile')[0].files[0]
+        var formData=new FormData()
+        var csrf_token=$('input[name=csrfmiddlewaretoken]').val()
+        formData.append('name',name);
+        formData.append('position',position);
+        formData.append('profile',profile);
+        formData.append('csrfmiddlewaretoken',csrf_token)
+        $.ajax({
+            url:'{% url "add_team_mate" %}',
+            data:formData,
+            method:'POST',
+            contentType: false,
+                processData: false,
+            success:function(data){
+                $('#response_message').html(data.message)
+                $('.backdrop').toggleClass('hidden')
+        $('.spinner').toggleClass('hidden')
+        $('.message').toggleClass('hidden')
+        
+            },
+            error:function(err){
+             console.log(err)  
+             $('.backdrop').toggleClass('hidden')
+        $('.spinner').toggleClass('hidden') 
+         $('.message').toggleClass('hidden')
+            }
+        })
+     })
+    })
+</script>
+{% endblock %}

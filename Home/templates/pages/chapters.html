@@ -27,16 +27,20 @@
     $(document).ready(function(){
         $('.chapter_button').on('click',function(){
             var chapterId=$(this).data('chapter-id');
-            // alert(chapterId)
+            //alert(chapterId)
             $.ajax({
                 url:'/staff/getskills/' + chapterId + '/',
                 method:'GET',
                 type:'json',
                 success:function(data){
-                    if(!data.skills.length >0){
+                   console.log(data.skills.length);
+                    if(data.skills.length>0){
                         displaySkills(data.skills)
                     }
-                    $('#display_skills').html('<div> <h2 className="text-orange-500" style="color:red">This chapter has no Skills,consider checking other Chapter</h2> </div>')
+                    else{
+                                $('#display_skills').html('<div> <h2 className="text-orange-500" style="color:red">This chapter has no Skills,consider checking other Chapter</h2> </div>')
+                    }
+                    
                 },
                 error:function(erro){
                     console.log(error)

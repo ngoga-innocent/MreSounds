@@ -20,3 +20,20 @@
         font-size: 2rem; /* Final font size */
     }
 }
+
+@keyframes LeftToRight{
+    0%{
+        transform: translateX(-200px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+    20%{
+        transform: rotate('360deg');
+    }
+    
+}
+.animate-text-right{
+animation: LeftToRight 3s ease-in;
+}
+

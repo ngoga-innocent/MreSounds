@@ -1,12 +1,22 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Course,Chapter,Skills
+from .models import Course,Chapter,Skills,Team
 from .forms import AddSKills,AddChapterForm
 from django.http import HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required,user_passes_test
+
+
+def is_staff(user):
+    return user.is_authenticated and user.is_staff
+
+@login_required
+@user_passes_test(is_staff)
 def Home(request):
     return render(request,'Staff/Home.html')
 # Create your views here.
+@login_required
+@user_passes_test(is_staff)
 def AddCourse(request):
     
     if request.method=='POST':
@@ -21,10 +31,14 @@ def AddCourse(request):
         courses=Course.objects.all()
         context={'courses':courses}
         return render(request,'Staff/addCourse.html',context)
+@login_required
+@user_passes_test(is_staff)
 def ViewChapter(request,id):
     chapters=Chapter.objects.filter(course=id)
     form=AddSKills
-    return render(request,'Staff/addSkills.html',{'form':form,'addchapter':AddChapterForm,'chapters':chapters,'course_id':id})  
+    return render(request,'Staff/addSkills.html',{'form':form,'addchapter':AddChapterForm,'chapters':chapters,'course_id':id})
+@login_required  
+@user_passes_test(is_staff)
 def AddSkill(request,course_id,chapter_id):
     submitted=False
     
@@ -52,6 +66,8 @@ def AddSkill(request,course_id,chapter_id):
         chapters=Chapter.objects.filter(course=course_id)
         form=AddSKills
         return render(request,'Staff/addSkills.html',{'form':form,'addchapter':AddChapterForm,'subitted':submitted,'chapters':chapters,'course_id':id})   
+@login_required
+@user_passes_test(is_staff)
 def AddChapter(request,id):
     if request.method=='POST':
         form=AddChapterForm(request.POST,request.FILES)
@@ -70,15 +86,19 @@ def AddChapter(request,id):
     else:
         chapters=Chapter.objects.filter(course=id)
         return render(request,'staff/addskills.html',{'chapters':chapters,'course_id':id})
+@login_required
+@user_passes_test(is_staff)
 def GetSkills(request, id):
     try:
-        skills = Skills.objects .filter(chapter=id).values()
-        # print(skills)
+        skills = Skills.objects.filter(chapter=id).values()
+        
         skills_list=list(skills)
+        print(skills_list)
         return JsonResponse({'skills': skills_list})
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
-    
+@login_required
+@user_passes_test(is_staff)
 def SingleSkill(request, id):
     skill = get_object_or_404(Skills, id=id)
 
@@ -104,3 +124,14 @@ def SingleSkill(request, id):
     # Handle non-AJAX requests here
     context = {'skill': skill}
     return render(request, 'pages/singleskill.html', context)
+def CreateTeammate(request):
+    if request.method == 'POST':
+        name=request.POST['name']
+        position=request.POST['position']
+        profile=request.FILES['profile']
+        team_mate=Team.objects.create(name=name,position=position,thumbnail=profile)
+        if team_mate:
+            return JsonResponse({'message':'team mate added'},status=200)
+        else:
+            return JsonResponse({'message':'failed to Add team mate please contact the Admin for further support'},status=400)
+    return render(request,'staff/addteammate.html')

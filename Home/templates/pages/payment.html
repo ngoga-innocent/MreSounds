@@ -2,36 +2,67 @@
 
 
 {% block content %}
-<div class="flex flex-col items-center justify-center">
-    <div class="grid grid-cols-2">
-        <div>
-
-        </div>
-        <form id="paymentForm"  class="form-control w-96 ">
+<div class="flex flex-col items-center justify-center bg-gradient-to-t h-screen " style="" >
+    <div class="">
+        <!-- <div>
+            <img src="{% static 'bg_pay.jpg' %}" alt="">
+        </div> -->
+        <h2 class="text-orange-300 font-bold">You have to pay, the subscription for this courses to access the course</h2>
+        <form id="paymentForm"  class="form-control md:w-96 mx-2 ">
             {% csrf_token %}
             <input type="hidden" name="course_id" value="{{course_id}}" id="course_id">
             <div class="">
                 <label for="email">Email Address</label><br>
-                <input type="email" id="email-address" required  class="w-full rounded-md"/>
+                <input type="email" id="email-address" required  class="w-full rounded-md bg-transparent border-2"/>
             </div>
             <div class="">
                 <label for="amount">Amount</label> <br>
-                <input type="tel" id="amount" required class="w-full rounded-md" />
+                <input type="tel" id="amount" value="4000" disabled  required class="w-full rounded-md bg-transparent border-2 disabled:true" />
             </div>
             <div class="">
                 <label for="first-name">First Name</label></br>
-                <input type="text" id="first-name" class="w-full rounded-md" />
+                <input type="text" id="first-name" class="w-full rounded-md bg-transparent border-2" />
             </div>
             <div class="">
                 <label for="last-name">Last Name</label> </br>
-                <input type="text" id="last-name" class="w-full rounded-md" />
+                <input type="text" id="last-name" class="w-full rounded-md bg-transparent border-2" />
             </div>
             <div class="form-submit mt-2 " >
-                <button type="submit" class="rounded-lg px-5 py-1 bg-blue-600 text-white font-bold" onclick="payWithPaystack()"> Pay </button>
+                <button type="submit" onclick="makePayment()" class="rounded-lg px-5 py-1 bg-blue-600 text-white font-bold" onclick="payWithPaystack()"> Pay </button>
             </div>
 </form>
 </div>
     </div>
+<!-- <script src="https://checkout.flutterwave.com/v3.js"></script>
+<script>
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-21469351733ef2890a047a0918e952cb-X",
+      tx_ref: "txref-DI0NzMx12",
+      amount: 2500,
+      currency: "RWF",
+      callback:function(data){
+        console.log(data)
+      },
+      payment_options: "card, mobilemoneyrwanda, account",
+      redirect_url: "http://localhost:8000/course/ad421352-1a37-4f9c-a642-28f84cbd6aff",
+      meta: {
+        source: "docs-inline-test",
+        consumer_mac: "92a3-912ba-1192a",
+      },
+      customer: {
+        email: "test@mailinator.com",
+        phone_number: "250782214360",
+        name: "Ayomide Jimi-Oni",
+      },
+      customizations: {
+        title: "Course Subscription",
+        description: "Test Payment",
+        logo: "https://checkout.flutterwave.com/assets/img/rave-logo.png",
+      },
+    });
+  }
+</script> -->
 
 <script src="https://js.paystack.co/v1/inline.js"></script>
 <script>

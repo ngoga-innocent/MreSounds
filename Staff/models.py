@@ -30,3 +30,11 @@ class Skills(models.Model):
 
     def __str__(self):
         return self.title
+class Team(models.Model):
+    id=models.UUIDField(primary_key=True,unique=True,editable=False,default=uuid.uuid4)
+    name=models.CharField(max_length=255)
+    position=models.CharField(max_length=255)
+    thumbnail=models.ImageField(upload_to='Team_profile',null=True)
+
+    def __str__(self):
+        return self.name

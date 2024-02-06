@@ -11,6 +11,7 @@ urlpatterns = [
      path('addcourse/<str:course_id>/<str:chapter_id>/',views.AddSkill, name='addcourse'),
      path('getskills/<str:id>/',views.GetSkills,name='get_skills'),
      path('skill/<str:id>',views.SingleSkill,name='skill'),
-     path('addchapter/<str:id>',views.AddChapter,name='addchapter')
+     path('addchapter/<str:id>',views.AddChapter,name='addchapter'),
+     path('addteammate',views.CreateTeammate,name='add_team_mate')
      
 ]

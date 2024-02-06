@@ -25,7 +25,7 @@ SECRET_KEY=os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG","False").lower()=="true"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
 
 
 # Application definition
@@ -66,7 +66,7 @@ MIDDLEWARE = [
     "django_browser_reload.middleware.BrowserReloadMiddleware",
     'corsheaders.middleware.CorsMiddleware',
 ]
-CORS_ALLOWED_ORIGINS=["http://localhost:8000",]
+CORS_ALLOWED_ORIGINS=["http://localhost:8000","https://muresounds.onrender.com"]
 CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'MureSounds.urls'
 LOGIN_URL = '/accounts'

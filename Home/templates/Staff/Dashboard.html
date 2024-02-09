@@ -59,9 +59,9 @@
 <!-- ... (Your existing HTML) -->
 
 
-    <div class="flex flex-row shadow-lg shadow-black z-30  ">
+    <!-- <div class="flex flex-row shadow-lg shadow-black z-30  ">
         <div class="flex flex-row items-start">
-            <div class="opacity-0 hidden transition ease-in duration-500 fixed" id="menu" style="height: 100vh;">
+            <div class=" transition ease-in duration-500 fixed" id="menu" style="height: 100vh;">
             <div class="flex flex-col bg-gradient-to-r from-green-600 to-green-900 p-3  min-h-screen overflow-y-auto " style="overflow-y: auto;" >
                 
                 
@@ -69,7 +69,7 @@
                     <li class="mb-28 p-3 bg-blue-950 rounded-lg z-10 shadow-lg shadow-white">
                     <div class="grid lg:grid-cols-2 items-center justify-center">
                         <img src="{% static 'logo.png' %}" alt="" class="h-14 rounded-full">
-                        <h1 class="text-white font-bold">{% block page %}{% endblock %}</h1>
+                        
                     </div>
                     </li>
                     <li class="z-20 shadow-sm shadow-white p-3
@@ -122,12 +122,46 @@
                 
             </div>
             </div>
-            <button id="toggleMenu" class="ml-20 p-2 h-[20rem] w-[20rem] bg-orange-600">
-            <i class="fa fa-bars" aria-hidden="true"  style="font-size: xx-large; color: gray;"></i>
+            <button id="toggleMenu" class="ml-20 p-2  bg-orange-600 ">
+            <i class="fa fa-bars" aria-hidden="true"  style="font-size: large; color: gray;"></i>
             </button>
         </div>
              
-        <div class=" grid col-span-6">{%block content  %}{% endblock %}</div>
+        
+    </div> -->
+    <div class="flex flex-row h-screen max-h-screen overflow-scroll ">
+        <div class=" w-[20%] max-w-[20%] flex flex-row ">
+            <ul class=" w-[98%] px-2 bg-blue-950" id="menu">
+                <li class="mb-28 p-3 bg-blue-950 rounded-lg z-10 shadow-lg shadow-white">
+                    <div class="grid lg:grid-cols-2 items-center justify-center">
+                        <img src="{% static 'logo.png' %}" alt="" class="h-14 rounded-full">
+                        <h1 class="text-white font-bold">{% block page %}{% endblock %}</h1>
+                    </div>
+                </li>
+
+                <li class="z-20 shadow-sm shadow-white p-3
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3"><kbd><a href="{% url 'addcourse' %}" class="text-white 
+                        font-bold hover:text-orange-600 ">Add Course</a></kbd>
+                </li>
+
+                <li class="z-20 shadow-sm shadow-white p-3
+                        hover:bg-green-900 hover:transition hover:ease-in-out duration-200 hover:scale-125 items-center
+                        justify-center text-center rounded-md mb-3">
+                        <kbd>
+                            <a href="{% url 'add_team_mate' %}" class="text-white 
+                        font-bold hover:text-orange-600 ">Add Team Mate
+                    </a></kbd>
+                </li>
+            </ul>
+            <button id="toggleMenu" class="h-12 w-12 mx-2 items-center  bg-orange-600 rounded-md">
+            <i class="fa fa-bars" aria-hidden="true"  style="font-size: large; color: gray;"></i>
+            </button>
+        </div>
+        <div class="">
+            {% block content %}{% endblock %}
+        </div>
+
     </div>
     <script>
         $(document).ready(function(){
@@ -138,7 +172,7 @@
 
                 if(!menuhidden){
                     $('#toggleMenu i').removeClass('fa-bars').addClass('fa-times')
-                    $('#menu').addClass('transition-opacity ease-in-out duration-300  animate-spin')
+                    $('#menu').addClass('transition-opacity ease-in-out duration-300  ')
                 }
                 else{
                     $('#toggleMenu i').removeClass('fa-times').addClass('fa-bars')

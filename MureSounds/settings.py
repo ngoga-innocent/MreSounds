@@ -100,7 +100,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-DATABASES['default']=dj_database_url.parse('postgres://muresoundstudio_user:1wvUHEO6q1GOyqYjlUByFGjDOZqlKObD@dpg-cn15vmmn7f5s73fe5ad0-a.oregon-postgres.render.com/muresoundstudio')
+#DATABASES['default']=dj_database_url.parse('postgres://muresoundstudio_user:1wvUHEO6q1GOyqYjlUByFGjDOZqlKObD@dpg-cn15vmmn7f5s73fe5ad0-a.oregon-postgres.render.com/muresoundstudio')
 # database_url=os.environ.get("DATABASE_URL")
 #DATABASES["default"]=dj_database_url.parse(database_url)
 # Password validation

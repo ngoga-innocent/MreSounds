@@ -2,5 +2,14 @@
 {% block page %} Home{% endblock  %}
 
 {% block content %}
-<div>Home page</div>
+<div class="grid grid-cols-3">
+    <div class="bg-white z-10 shadow-lg shadow-black rounded-lg items-center justify-center">
+        <h1 class="text-center">{{ courses }}</h1>
+
+    </div>
+    <div>
+        <h1>{{ users }}</h1>
+    </div>
+
+</div>
 {% endblock %}

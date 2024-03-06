@@ -862,11 +862,6 @@ select {
   margin-bottom: auto;
 }
 
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
-
 .mb-10 {
   margin-bottom: 2.5rem;
 }
@@ -951,6 +946,10 @@ select {
   height: 2.5rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-14 {
   height: 3.5rem;
 }
@@ -991,10 +990,6 @@ select {
   height: 100vh;
 }
 
-.h-12 {
-  height: 3rem;
-}
-
 .max-h-full {
   max-height: 100%;
 }
@@ -1023,6 +1018,10 @@ select {
   width: 91.666667%;
 }
 
+.w-12 {
+  width: 3rem;
+}
+
 .w-2\/3 {
   width: 66.666667%;
 }
@@ -1039,6 +1038,14 @@ select {
   width: 100%;
 }
 
+.w-\[20\%\] {
+  width: 20%;
+}
+
+.w-\[98\%\] {
+  width: 98%;
+}
+
 .w-full {
   width: 100%;
 }
@@ -1047,32 +1054,12 @@ select {
   width: 100vw;
 }
 
-.w-\[80\%\] {
-  width: 80%;
-}
-
-.w-\[20\%\] {
-  width: 20%;
-}
-
-.w-12 {
-  width: 3rem;
-}
-
-.w-\[98\%\] {
-  width: 98%;
-}
-
-.max-w-full {
-  max-width: 100%;
-}
-
 .max-w-\[20\%\] {
   max-width: 20%;
 }
 
-.max-w-\[0\%\] {
-  max-width: 0%;
+.max-w-full {
+  max-width: 100%;
 }
 
 .flex-1 {
@@ -1107,16 +1094,6 @@ select {
 
 .animate-pulse {
   animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin {
-  animation: spin 1s linear infinite;
 }
 
 .resize {

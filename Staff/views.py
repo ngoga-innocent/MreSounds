@@ -5,7 +5,9 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.core import serializers
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.contrib.auth import get_user_model
 
+User=get_user_model()
 
 def is_staff(user):
     return user.is_authenticated and user.is_staff
@@ -13,7 +15,10 @@ def is_staff(user):
 @login_required
 @user_passes_test(is_staff)
 def Home(request):
-    return render(request,'Staff/Home.html')
+    courses=Course.objects.all().count()
+    users=User.objects.all().count()
+    context={'courses':courses,'users':users}
+    return render(request,'Staff/Home.html',context)
 # Create your views here.
 @login_required
 @user_passes_test(is_staff)
